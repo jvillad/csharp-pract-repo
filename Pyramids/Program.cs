@@ -15,7 +15,11 @@ namespace Pyramids
                 Console.Write("Please enter a number: ");
                 string userInput = Console.ReadLine();
 
-                if (int.TryParse(userInput, out int numOfStars))
+                if (!int.TryParse(userInput, out int numOfStars)) 
+                {
+                    Console.WriteLine("Invalid number, Try again.");
+                }                                               
+                else
                 {
                     for (int i = 1; i <= numOfStars; i++)
                     {
@@ -63,8 +67,7 @@ namespace Pyramids
                     Console.WriteLine();
 
                 }
-                else
-                    Console.WriteLine("Invalid number, Try again.");
+               
             }
             
 
