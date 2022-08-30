@@ -9,60 +9,67 @@ namespace TempConvertion
     
     internal class Program
     {        
-        static void Main(string[] args)
+        static void Main()
         {
             //Exercise 1
-            CelciusToFahrenheit();
+            CelciusToFahrenheit(UserInput());
             //Exercise 2
-            FahrenheitToCelcius();
+            FahrenheitToCelcius(UserInput());
             //Exercise 3
             while (true)
             {
                 Console.WriteLine("Temperature Convertion \n 1. Celcius to Fahrenheit \n 2. Fahrenheit to Celcius");
                 Console.WriteLine("Please select the desired conversion"); 
-                char userSelection = Console.ReadKey(true).KeyChar;
-                
-                if (userSelection == '1')
+                char userSelection = Console.ReadKey(false).KeyChar;
+                if (userSelection != '1' && userSelection != '2')
                 {
-                    Console.WriteLine($"You pressed {userSelection} for Celcius to Fahrenheit");
-                    CelciusToFahrenheit();
+                    Console.WriteLine("\nInvalid selection, Please try again");                    
                 }
-                else if (userSelection == '2')
+                else if (userSelection == '1')
                 {
-                    Console.WriteLine($"You pressed {userSelection} for Fahrenheit to Celcius");
-                    FahrenheitToCelcius();
+                    Console.WriteLine();
+                    CelciusToFahrenheit(UserInput());
                 }
-                else
-                    Console.WriteLine("\nInvalid selection, Please try again. ");
+                else if( userSelection == '2')
+                {
+                    Console.WriteLine();
+                    FahrenheitToCelcius(UserInput());
+                }
             }
         }
-        private static void CelciusToFahrenheit()
-        {            
-            Console.Write("Please enter a number: ");
-            string userInput = Console.ReadLine();
 
-            if (double.TryParse(userInput, out double numCelcius))
-            {
-                Console.WriteLine($"You entered {userInput} degrees Celcius");
-                double fahrenheit = (numCelcius * 9 / 5) + 32;
-                Console.WriteLine($"That is equivalent to {fahrenheit} degrees Fahrenheit\n");
-            }
-            else
-                Console.WriteLine("Please enter a valid number");
-        }
-        private static void FahrenheitToCelcius()
+        private static double UserInput() 
         {
             Console.Write("Please enter a number: ");
             string userInput = Console.ReadLine();
+            double numCelcius = InputValidation(userInput);
+            return numCelcius;            
+         
+        }
 
-            if (double.TryParse(userInput, out double numFahrenheit))
+        private static double InputValidation(string userInput) 
+        {
+            if (!double.TryParse(userInput, out double numToConvert))
             {
-                Console.WriteLine($"You entered {userInput} degrees Celcius");
+                Console.WriteLine("Please enter a valid number");
+                UserInput();               
+            }
+
+            return numToConvert;
+        }
+
+        private static void CelciusToFahrenheit(double numCelcius)
+        {            
+                double fahrenheit = (numCelcius * 9 / 5) + 32;
+                Console.WriteLine($"That is equivalent to {fahrenheit} degrees Fahrenheit\n");
+          
+        }
+        private static void FahrenheitToCelcius(double numFahrenheit)
+        {
+            
                 double celcius = (numFahrenheit - 32) * 5 / 9;
                 Console.WriteLine($"That is equivalent to {celcius} degrees Celcius\n");
-            }
-            else
-                Console.WriteLine("Please enter a valid number");
+    
         }
     }
 }
