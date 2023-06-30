@@ -10,10 +10,9 @@ public partial class Product
     private string _name = null!;
     private string? _description;
     private int _maxItemsInStock = 0;
-    public Price Price { get; set; }
-    
-    
-    
+    public Price Price { get; set; } = null!;
+
+
     public int Id
     {
         get => _id;
@@ -51,17 +50,16 @@ public partial class Product
     public bool IsBelowStockThreshold { get; private set; }
     
     // overloading constructor
-    public Product(int id, Price price) : this(id, string.Empty, price){}
+    public Product(int id) : this(id, string.Empty){}
 
-    public Product(int id, string name, Price price)
+    public Product(int id, string name)
     {
         Id = id;
         Name = name;
-        Price = price;
     }
 
-    public Product(int id, string name, string? description, UnitType unitType, 
-        int maxAmountInStock, Price price)
+    public Product(int id, string name, string? description,Price price, UnitType unitType, 
+        int maxAmountInStock )
     {
         Id = id;
         Name = name;
@@ -105,6 +103,11 @@ public partial class Product
             // only store possible items, overstock is not stored
             AmountInStock = _maxItemsInStock;
             Log($"{CreateSimpleProductRepresentation()} stock overflow. {newStock - AmountInStock} item(s) ordered that couldn't be stored.");
+        }
+
+        if (AmountInStock > StockThreshold)
+        {
+            IsBelowStockThreshold = false;
         }
     }
 
@@ -153,6 +156,4 @@ public partial class Product
 
         return sb.ToString();
     }
-
- 
 }

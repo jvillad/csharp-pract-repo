@@ -2,10 +2,18 @@
 
 public partial class Product
 {
-    private void UpdateLowStock()
+    public static int StockThreshold = 5;
+
+    public static void ChangeStockThreshold(int newStockThreshold)
+    {
+        if (newStockThreshold > 0)
+            StockThreshold = newStockThreshold;
+    }
+
+    public void UpdateLowStock()
     {
         // defaulting and fix to 10(temp)
-        if (AmountInStock < 10)
+        if (AmountInStock < StockThreshold)
         {
             IsBelowStockThreshold = true;
         }
