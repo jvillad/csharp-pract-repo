@@ -9,4 +9,10 @@ public class Price
     {
         return $"{ItemPrice} {Currency}";
     }
+
+    // public Price(double price, Currency currency)
+    // {
+    //     ItemPrice = price;
+    //     Currency = currency;
+    // }
 }
