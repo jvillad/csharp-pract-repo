@@ -1,4 +1,6 @@
-﻿namespace BrewMachina.PractInventoryManagement.Domain.OrderManagement;
+﻿using System.Text;
+
+namespace BrewMachina.PractInventoryManagement.Domain.OrderManagement;
 
 public class Order
 {
@@ -16,5 +18,21 @@ public class Order
         OrderFulfilmentDate = DateTime.Now.AddSeconds(numberofSeconds);
 
         OrderItems = new List<OrderItem>();
+    }
+
+    public string ShowOrderDetails()
+    {
+        StringBuilder orderDetails = new StringBuilder();
+        orderDetails.AppendLine($"Order ID: {Id}");
+        orderDetails.AppendLine($"Order fulfilment date:{OrderFulfilmentDate.ToShortDateString()}");
+        if (OrderItems != null)
+        {
+            foreach (OrderItem item in OrderItems)
+            {
+                orderDetails.AppendLine($"{item.ProductId}. {item.ProductName}: {item.AmountOrdered}");
+            }
+        }
+
+        return orderDetails.ToString();
     }
 }
