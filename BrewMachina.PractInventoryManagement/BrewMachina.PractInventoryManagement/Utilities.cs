@@ -11,12 +11,8 @@ namespace BrewMachina.PractInventoryManagement;
 
         public static void InitializeStock()//Mock implementation
         {
-            _inventory.Add(new Product(1, "Code Black", "Lorem ipsum", new Price() { ItemPrice = 10, Currency = Currency.Aud }, UnitType.PerItem, 100));
-            _inventory.Add(new Product(2, "Single O", "Lorem ipsum", new Price() { ItemPrice = 8, Currency = Currency.Aud }, UnitType.PerItem, 20));
-            _inventory.Add(new Product(3, "Bulen Kohi", "Lorem ipsum", new Price() { ItemPrice = 3, Currency = Currency.Aud }, UnitType.PerItem, 10));
-
-           
-
+            ProductRepository productRepository = new();
+            _inventory = productRepository.LoadProductsFromFile();
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($"Loaded {_inventory.Count} products!");
 
