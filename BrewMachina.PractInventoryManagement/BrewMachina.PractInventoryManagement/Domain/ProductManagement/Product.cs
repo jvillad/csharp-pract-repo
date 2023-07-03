@@ -112,7 +112,7 @@ public partial class Product
     }
 
 
-    private void DecreaseStock(int items, string reason)
+    protected void DecreaseStock(int items, string reason)
     {
         if (items <= AmountInStock)
         {
